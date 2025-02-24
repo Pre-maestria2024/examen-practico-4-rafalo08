@@ -7,43 +7,45 @@
 #if __name__ == '__main__':
 #	main()
 def main():
-    # 1) Leer n y m
-    n, m = map(int, input().split())
-    
-    # 2) Leer el arreglo H (n valores)
-    H = list(map(int, input().split()))
-    
-    # 3) Leer el arreglo D (n valores)
-    D = list(map(int, input().split()))
-    
-    # 4) Suma total de los d_i (si vendiéramos todos los alimentos)
-    total_d = sum(D)
-    
-    # 5) Definir el arreglo dp para la salud de 0 hasta m
-    #    dp[x] = costo mínimo (suma de d_i de alimentos comidos) para conseguir salud >= x
-    INF = float('inf')
-    dp = [INF] * (m + 1)
-    dp[0] = 0  # Para salud 0, no se necesita comer nada (costo=0)
-    
-    # 6) Lógica de la DP: actualizar para cada alimento
-    for i in range(n):
-        hi = H[i]
-        di = D[i]
-        # Recorremos la salud en orden descendente para evitar
-        # reutilizar el mismo alimento varias veces en una sola pasada
-        for cur_health in range(m, -1, -1):
-            if dp[cur_health] != INF:
-                new_health = cur_health + hi
-                if new_health > m:
-                    new_health = m
-                new_cost = dp[cur_health] + di
-                if new_cost < dp[new_health]:
-                    dp[new_health] = new_cost
-    
-    # 7) dp[m] indica la suma mínima de d_i de los alimentos que se debieron comer
-    answer = total_d - dp[m]
-    print(answer)
+    # Ruta del archivo de entrada
+    #file_path = r"C:\Users\racueva\Desktop\problema1_input15.txt"
+
+    # Leer la entrada desde el archivo
+    #with open(file_path, "r") as file:
+    #    lines = file.readlines()
+
+    # Procesar las líneas del archivo
+    m, n = map(int, input().split())  # m: número de alimentos, n: salud máxima
+    H = list(map(int, input().split()))  # hi: aumento de salud por cada alimento
+    D = list(map(int, input().split()))  # di: dinero obtenido si se vende el alimento
+
+    # Crear una lista de tuplas (hi, di) para facilitar el procesamiento
+    foods = [(H[i], D[i]) for i in range(m)]
+
+    # Ordenar los alimentos por su valor monetario di de menor a mayor
+    # Esto asegura que consumimos primero los alimentos menos valiosos
+    foods.sort(key=lambda x: x[1])
+
+    # Inicializar la tabla DP
+    # dp[j]: Máximo dinero que se puede ganar con salud actual j
+    dp = [0] * (n + 1)
+
+    # Iterar sobre cada alimento
+    for hi, di in foods:
+        # Actualizar la tabla DP desde atrás hacia adelante
+        for j in range(n, -1, -1):
+            if j < n:
+                # Si la salud no está completamente restaurada, consumir el alimento
+                new_health = min(j + hi, n)
+                dp[new_health] = max(dp[new_health], dp[j])
+            else:
+                # Si la salud ya está completamente restaurada, vender el alimento
+                dp[j] = max(dp[j], dp[j] + di)
+
+    # El resultado es el máximo dinero que se puede ganar cuando la salud es n
+    print(dp[n])
 
 
+# Ejecutar el programa
 if __name__ == '__main__':
     main()
