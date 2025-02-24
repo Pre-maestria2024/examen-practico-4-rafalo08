@@ -8,7 +8,7 @@
 #	main()
 def main():
     # Leemos los valores de m (salud máxima) y n (cantidad de alimentos)
-    n, m = map(int, input().split())
+    m, n = map(int, input().split())
     # Arreglo de "h" (puntos de salud que da cada alimento)
     H = list(map(int, input().split()))
     # Arreglo de "d" (dólares que da si se vende cada alimento)
