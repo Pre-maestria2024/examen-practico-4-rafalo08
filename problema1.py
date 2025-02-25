@@ -8,15 +8,15 @@
 #	main()
 def main():
     m, n = map(int, input().split())  # m: alimentos, n: salud requerida
-    H = list(map(int, input().split()))  # Incrementos de salud
-    D = list(map(int, input().split()))  # Daños asociados
+    H = list(map(int, input().split()))  
+    D = list(map(int, input().split()))  
     
-    total_d = sum(D)  # Daño total inicial
-    sum_h = sum(H)    # Suma total de salud disponible
+    total_d = sum(D)  
+    sum_h = sum(H)    
     
     # Si la suma de H es menor que n, no es posible alcanzar la salud requerida
     if sum_h < n:
-        print(0)  # Imprimir 0 en lugar de -1
+        print(0)  # Imprimir 0 
         return
     
     max_h = max(H)
@@ -44,7 +44,7 @@ def main():
     
     # Si no se puede alcanzar la salud requerida (min_d sigue siendo infinito)
     if min_d == float('inf'):
-        print(0)  # Imprimir 0 en lugar de -1
+        print(0)  # Imprimir 0 
     else:
         print(total_d - min_d)
 
