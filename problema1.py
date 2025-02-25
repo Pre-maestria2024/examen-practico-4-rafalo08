@@ -14,9 +14,9 @@ def main():
     total_d = sum(D)  # Daño total inicial
     sum_h = sum(H)    # Suma total de salud disponible
     
-    # Si la suma de H es menor que n, es imposible alcanzar la salud requerida
+    # Si la suma de H es menor que n, no es posible alcanzar la salud requerida
     if sum_h < n:
-        print(-1)  # Indicar que no es posible alcanzar la salud requerida
+        print(0)  # Imprimir 0 en lugar de -1
         return
     
     max_h = max(H)
@@ -44,7 +44,7 @@ def main():
     
     # Si no se puede alcanzar la salud requerida (min_d sigue siendo infinito)
     if min_d == float('inf'):
-        print(-1)  # Indicar que no es posible alcanzar la salud requerida
+        print(0)  # Imprimir 0 en lugar de -1
     else:
         print(total_d - min_d)
 
