@@ -37,8 +37,10 @@ def main():
             dp[max_j] = d
     
     # Encontrar el mínimo D para salud >= n
-    start = max(n, 0)
-    min_d = min(dp[start:max_j + 1])
+    min_d = float('inf')
+    for j in range(n, max_j + 1):  # Considerar salud >= n
+        if dp[j] < min_d:
+            min_d = dp[j]
     
     # Si no se puede alcanzar la salud requerida (min_d sigue siendo infinito)
     if min_d == float('inf'):
